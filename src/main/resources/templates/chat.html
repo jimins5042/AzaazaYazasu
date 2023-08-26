@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Example</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .messages-container {
+            max-height: 400px;
+            min-height: 400px; /* 채팅창 최소 높이 설정 */
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .user-message {
+            background-color: #f2f2f2;
+            text-align: right;
+        }
+
+        .bot-message {
+            background-color: #dff6fc;
+            text-align: left;
+        }
+
+        .input-container {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #f2f2f2;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        #send-button {
+            border: none;
+            border-radius: 8px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="#!">Start Bootstrap</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/main">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/add">About</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">All Products</a></li>
+                        <li>
+                            <hr class="dropdown-divider"/>
+                        </li>
+                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <form class="d-flex">
+                <button class="btn btn-outline-dark" type="submit">
+                    <i class="bi-cart-fill me-1"></i>
+                    Cart
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+<!-- Header-->
+<header class="bg-dark py-5" style="margin-bottom: +50px;">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Shop in style</h1>
+            <p class="lead fw-normal text-white-50 mb-0">With this shop homepage template</p>
+        </div>
+    </div>
+</header>
+
+<div class="chat-container">
+    <div class="messages-container" id="messages-container">
+
+        <!-- 채팅 메시지를 출력할 빈 div -->
+    </div>
+    <div class="input-container" >
+        <input type="text" id="user-input" placeholder="Type your message..." onkeydown="handleInputKeyPress(event)">
+        <button id="send-button">Send</button>
+    </div>
+</div>
+
+<footer class="py-5 bg-dark"  style="margin-top: +50px;">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<!-- Core theme JS-->
+<script th:src="@{/js/scripts.js}"></script>
+
+<script>
+    const sendButton = document.getElementById("send-button");
+    const userInput = document.getElementById("user-input");
+    const messagesContainer = document.getElementById("messages-container");
+
+
+    // 기본 메시지를 화면에 추가하는 함수
+    function displayBotMessage(message) {
+        const botMessageElement = document.createElement("div");
+        botMessageElement.classList.add("chat-message", "bot-message");
+        botMessageElement.textContent = message;
+        messagesContainer.appendChild(botMessageElement);
+    }
+
+    // 페이지가 로드되었을 때 기본 메시지를 추가
+    window.addEventListener('load', () => {
+        const defaultMessages = ["안녕하세요!<br> 고객님에게 딱 맞는 꽃추천 챗봇, '피오나'입니다.<br>질문에 대한 답을 자세하게 작성할수록<br>" +
+        " 고객님이 원하시는 꽃을 찾을 수 있어요! <br><br>", "1번질문"];
+        defaultMessages.forEach(message => {
+            displayBotMessageWithLineBreak(message);
+        });
+        scrollToBottom(messagesContainer);
+    });
+
+    sendButton.addEventListener("click", async () => {
+        const userMessage = userInput.value;
+        if (userMessage) {
+            displayUserMessage(userMessage);
+            scrollToBottom(messagesContainer);
+            fetch("/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userMessage),
+            })
+                .then(response => response.text())
+                .then(data => {
+                    // 새로운 메시지를 화면에 추가
+                    const botMessageElement = document.createElement("div");
+                    botMessageElement.classList.add("chat-message", "bot-message");
+                    botMessageElement.textContent = data;
+                    messagesContainer.appendChild(botMessageElement);
+
+                    scrollToBottom(messagesContainer);
+                });
+        }
+    });
+
+    function displayBotMessageWithLineBreak(message) {
+        const botMessageElement = document.createElement("div");
+        botMessageElement.classList.add("chat-message", "bot-message");
+        botMessageElement.innerHTML = message; // innerHTML을 사용하여 HTML 태그 인식
+        messagesContainer.appendChild(botMessageElement);
+    }
+    function displayUserMessage(message) {
+        const userMessageElement = document.createElement("div");
+        userMessageElement.classList.add("chat-message", "user-message");
+        userMessageElement.textContent = message;
+        messagesContainer.appendChild(userMessageElement);
+        userInput.value = "";
+    }
+
+    function scrollToBottom(element) {
+        element.scrollTop = element.scrollHeight;
+    }
+
+    function handleInputKeyPress(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // 기본 엔터 동작 방지
+            sendButton.click(); // send 버튼 클릭
+        }
+    }
+
+
+    // 페이지가 로드되었을 때 모달 이벤트 설정
+    window.addEventListener('load', () => {
+        const chatModal = new bootstrap.Modal(document.getElementById('chatModal'), {
+            backdrop: 'static', // 모달 외부 클릭 시 닫히지 않도록 설정
+        });
+
+        chatModal.show();
+    });
+
+</script>
+</body>
+</html>
