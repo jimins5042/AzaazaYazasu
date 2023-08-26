@@ -111,11 +111,12 @@
     </div>
 </nav>
 <!-- Header-->
+
 <header class="bg-dark py-5" style="margin-bottom: +50px;">
-    <div class="container px-4 px-lg-5 my-5">
+    <div class="container px-4 px-lg-5 my-3">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Shop in style</h1>
-            <p class="lead fw-normal text-white-50 mb-0">With this shop homepage template</p>
+            <h1 class="display-3 fw-bolder">피어나</h1>
+            <p class="lead fw-normal text-white-50 mb-0">일상을 꽃으로 채우다</p>
         </div>
     </div>
 </header>
@@ -155,8 +156,8 @@
 
     // 페이지가 로드되었을 때 기본 메시지를 추가
     window.addEventListener('load', () => {
-        const defaultMessages = ["안녕하세요!<br> 고객님에게 딱 맞는 꽃추천 챗봇, '피오나'입니다.<br>질문에 대한 답을 자세하게 작성할수록<br>" +
-        " 고객님이 원하시는 꽃을 찾을 수 있어요! <br><br>", "1번질문"];
+        const defaultMessages = ["안녕하세요!<br> 고객님에게 꼭 맞는 꽃 추천 챗봇, '피오나'입니다.<br>질문에 대한 답을 자세하게 작성할수록<br>" +
+        " 고객님이 원하시는 꽃을 찾을 수 있어요!", "1번질문"];
         defaultMessages.forEach(message => {
             displayBotMessageWithLineBreak(message);
         });
@@ -212,16 +213,6 @@
             sendButton.click(); // send 버튼 클릭
         }
     }
-
-
-    // 페이지가 로드되었을 때 모달 이벤트 설정
-    window.addEventListener('load', () => {
-        const chatModal = new bootstrap.Modal(document.getElementById('chatModal'), {
-            backdrop: 'static', // 모달 외부 클릭 시 닫히지 않도록 설정
-        });
-
-        chatModal.show();
-    });
 
 </script>
 </body>
