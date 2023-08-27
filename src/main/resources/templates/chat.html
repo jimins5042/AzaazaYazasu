@@ -181,7 +181,9 @@
                     // 새로운 메시지를 화면에 추가
                     const botMessageElement = document.createElement("div");
                     botMessageElement.classList.add("chat-message", "bot-message");
-                    botMessageElement.textContent = data;
+//                    botMessageElement.textContent = data;
+                    botMessageElement.innerHTML = data; // innerHTML을 사용하여 HTML 태그 인식
+
                     messagesContainer.appendChild(botMessageElement);
 
                     scrollToBottom(messagesContainer);

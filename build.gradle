@@ -33,8 +33,6 @@ dependencies {
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.2'
 
 	implementation 'io.github.flashvayne:chatgpt-spring-boot-starter:1.0.4'
-	//websocket
-
 }
 
 tasks.named('test') {
