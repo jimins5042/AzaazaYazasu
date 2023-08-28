@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>상품 상세 정보</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+    <!-- Bootstrap icons-->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="#!">Start Bootstrap</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/main">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/add">About</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">All Products</a></li>
+                        <li>
+                            <hr class="dropdown-divider"/>
+                        </li>
+                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <form class="d-flex" style="margin-inline-start: 680px;">
+                <button class="btn btn-outline-dark text-sm-end" type="submit">
+                    <i class="bi-cart-fill me-1"></i>
+                    Cart
+                    <!--span class="badge bg-dark text-white ms-1 rounded-pill">0</span-->
+                </button>
+            </form>
+
+            <div class="text-sm-end" style="margin-inline-start: 20px;">
+                <i class="box-arrow-up-right me-1"></i>
+                <a class="btn btn-outline-dark mt-auto" th:href="@{'/chat'}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-chat-right-dots" viewBox="0 0 16 16">
+                        <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
+                        <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                    </svg>
+                    챗봇 상담</a>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<div class="jumbotron">
+    <div class="container text-center">
+        <h1 class="display-5">상품 정보</h1>
+    </div>
+</div>
+<div class="container" style="margin-top: +100px; margin-bottom: +100px;">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- 이미지를 화면 왼쪽에 배치 -->
+            <div class="product-image">
+                <img th:src="@{'https://source.unsplash.com/1600x900/?' + ${purchase.recommendName}}"
+                         alt="Product Image" class="img-fluid">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <!-- 상품 정보를 화면 오른쪽에 배치 -->
+            <div class="product-info">
+                <h3 th:text="${purchase.recommendName}"></h3>
+                <p th:text="${purchase.recommendContent}"></p>
+                <p><b>상품 코드 : </b><span class="badge badge-danger"
+                                        th:text="${purchase.recommendId}"></span></p>
+                <p><b>제조사</b> : <!--span th:text="${product.manufacturer}"--> <span> 전북 전주시 ~</span></p>
+                <p><b>재고 수</b> : <!--span th:text="${product.unitsInStock}"--> <span> 1000 </span></p>
+                <h4><!--span th:text="${product.unitPrice}"></span-->10000원</h4>
+                <p><a href="#" class="btn btn-info"> 상품 주문 &raquo;</a>
+                    <a href="/main" class="btn btn-secondary">주문취소 &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<!-- Core theme JS-->
+<script th:src="@{/js/scripts.js}"></script>
+</body>
+</html>

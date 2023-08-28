@@ -2,6 +2,7 @@ package Practice.ShoppingMall.repository;
 
 import Practice.ShoppingMall.dto.PageProduct;
 import Practice.ShoppingMall.dto.Product;
+import Practice.ShoppingMall.dto.RecommendFlowerDto;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -31,4 +32,13 @@ public interface ProductMapper {
 
     @Insert("INSERT INTO product(product_name, product_info) VALUES(#{productName}, #{productInfo})")
     void insertProduct(Product product);
+
+
+    @Insert("INSERT INTO recommend(recommend_Image, recommend_Name, recommend_Content) " +
+            "VALUES(#{recommendImage}, #{recommendName}, #{recommendContent})")
+    void insertRecommendFlower(RecommendFlowerDto recommendFlowerDto);
+
+    @Select("SELECT * FROM recommend ORDER BY recommend_Id DESC limit 1")
+    RecommendFlowerDto findPurchaseRecord();
+
 }

@@ -1,6 +1,7 @@
 package Practice.ShoppingMall.controller;
 
 import Practice.ShoppingMall.dto.Product;
+import Practice.ShoppingMall.dto.RecommendFlowerDto;
 import Practice.ShoppingMall.repository.ProductMapper;
 import Practice.ShoppingMall.service.ChatService;
 import io.github.flashvayne.chatgpt.service.ChatgptService;
@@ -36,10 +37,10 @@ public class ProductController {
     @GetMapping("/chat")
     public String chat(Model model) {
         // log.info(""+botMessages.size());
+
+        botMessages.clear();
         if (botMessages.size() == 0) {
-            botMessages.add("1번 질문");
-        } else {
-            log.info("size : " + botMessages.size() + " 채팅 : " + botMessages.get(botMessages.size() - 1));
+            botMessages.add("어떤 사람에게 선물 하시는 꽃인가요?");
         }
         model.addAttribute("botMessages", botMessages);
 
@@ -102,6 +103,16 @@ public class ProductController {
         productMapper.insertProduct(product);
         redirectAttributes.addAttribute("productId", productMapper.lastOne().getProductId());
         return "redirect:/product/{productId}";
+    }
+
+    @GetMapping("/purchase")
+    public String purchaseFlower(Model model){
+        log.info("= 상품구매 페이지 이동 =");
+
+        RecommendFlowerDto purchase = productMapper.findPurchaseRecord();
+
+        model.addAttribute("purchase", purchase);
+        return "/purchase";
     }
 
 

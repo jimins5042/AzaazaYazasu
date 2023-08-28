@@ -1,6 +1,7 @@
 package Practice.ShoppingMall.service;
 
 import Practice.ShoppingMall.dto.Product;
+import Practice.ShoppingMall.dto.RecommendFlowerDto;
 import Practice.ShoppingMall.repository.ProductMapper;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,15 @@ public class ProductService {
         productMapper.insertProduct(product);
         return productMapper.lastOne();
     }
+
+    public void saveRecommend(RecommendFlowerDto recommendFlowerDto){
+        productMapper.insertRecommendFlower(recommendFlowerDto);
+    }
+
+    public RecommendFlowerDto findPurchaseRecord(){
+        return productMapper.findPurchaseRecord();
+    }
+
+
 
 }
