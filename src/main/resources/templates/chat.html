@@ -71,6 +71,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
 </head>
 <body>
 
@@ -122,13 +128,58 @@
 </header>
 
 <div class="chat-container">
+
     <div class="messages-container" id="messages-container">
 
         <!-- 채팅 메시지를 출력할 빈 div -->
+
     </div>
     <div class="input-container" >
         <input type="text" id="user-input" placeholder="Type your message..." onkeydown="handleInputKeyPress(event)">
         <button id="send-button">Send</button>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" style="text-align: center">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">다른 사람들에게 결과를 공유하세요!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <a href="ko.qr-code-generator.com/" border="0" style="cursor:default" rel="nofollow">
+                    <img src="https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fwww.naver.com%2F&chs=180x180&choe=UTF-8&chld=L|2">
+                </a>
+                <p><br>
+                    <b>공유가 끝났다면 '닫기' 버튼을 눌러주십시오.</b>
+                </p>
+
+                <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.3.0/kakao.min.js"
+                        integrity="sha384-70k0rrouSYPWJt7q9rSTKpiTfX6USlMYjZUtr1Du+9o4cGvhPAWxngdtVZDdErlh" crossorigin="anonymous"></script>
+                <script th:inline="javascript">
+                    var articleObject = [[${kakaoApikey}]];
+                    Kakao.init(articleObject);
+                </script>
+
+                <a id="kakaotalk-sharing-btn" href="javascript:;">
+                    <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                         alt="카카오톡 공유 보내기 버튼" />
+                </a>
+                <a id="kakaotalk-sharing-btn1" href="javascript:;">
+                    <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                         alt="카카오톡 공유 보내기 버튼" />
+                </a>
+                <a id="kakaotalk-sharing-btn2" href="javascript:;">
+                    <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                         alt="카카오톡 공유 보내기 버튼" />
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" th:onclick="|location.href='@{/main}'|">닫기</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -144,33 +195,39 @@
     const sendButton = document.getElementById("send-button");
     const userInput = document.getElementById("user-input");
     const messagesContainer = document.getElementById("messages-container");
-
+    const btn = document.getElementById("messages-container");
 
     // 기본 메시지를 화면에 추가하는 함수
     function displayBotMessage(message) {
         const botMessageElement = document.createElement("div");
         botMessageElement.classList.add("chat-message", "bot-message");
         botMessageElement.textContent = message;
-        messagesContainer.appendChild(botMessageElement);
+        messagesContainer.appendChild(show);
     }
 
     // 페이지가 로드되었을 때 기본 메시지를 추가
     window.addEventListener('load', () => {
         const defaultMessages = ["안녕하세요!<br> 고객님에게 꼭 맞는 꽃 추천 챗봇, '피오나'입니다.<br>질문에 대한 답을 자세하게 작성할수록<br>" +
-        " 고객님이 원하시는 꽃을 찾을 수 있어요!", "1번질문"];
+        " 고객님이 원하시는 꽃을 찾을 수 있어요!", "어떤 사람에게 선물 하시는 꽃인가요?"];
         defaultMessages.forEach(message => {
             displayBotMessageWithLineBreak(message);
         });
         scrollToBottom(messagesContainer);
     });
 
+
     sendButton.addEventListener("click", async () => {
+
         const userMessage = userInput.value;
 
         if(userMessage === "!구매"){
             window.location.href = "http://localhost:8080/purchase";
-        }else if(userMessage === "!다시"){
+        }else if(userMessage === "!다시") {
             window.location.href = "http://localhost:8080/chat";
+        } else if(userMessage === "!공유"){
+            const modal = document.getElementById("exampleModal");
+            const modalInstance = new bootstrap.Modal(modal);
+            modalInstance.show();
         }else {
             displayUserMessage(userMessage);
             scrollToBottom(messagesContainer);
@@ -193,6 +250,7 @@
                 });
         }
     });
+
 
     function displayBotMessageWithLineBreak(message) {
         const botMessageElement = document.createElement("div");
@@ -219,6 +277,16 @@
         }
     }
 
+    Kakao.Share.createCustomButton({
+        container: '#kakaotalk-sharing-btn',
+        templateId: 97832,
+        templateArgs: {
+            title: '제목 영역입니다.',
+            description: '설명 영역입니다.',
+        },
+    });
+
 </script>
+
 </body>
 </html>

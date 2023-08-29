@@ -7,6 +7,8 @@ import Practice.ShoppingMall.service.ChatService;
 import io.github.flashvayne.chatgpt.service.ChatgptService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -24,10 +25,12 @@ public class ProductController {
     private final ChatService chatService;
     private final ChatgptService chatgptService;
 
+    @Value("${kakao.api-key}")
+    private String kakaoApikey;
+
     @GetMapping("/main")
     public String mainPage(Model model) {
         log.info("= 메인 페이지 =");
-        //model.addAttribute("products", productMapper.findAll());
         model.addAttribute("products", productMapper.pagenation());
         return "/main";
     }
@@ -42,14 +45,14 @@ public class ProductController {
         if (botMessages.size() == 0) {
             botMessages.add("어떤 사람에게 선물 하시는 꽃인가요?");
         }
-        model.addAttribute("botMessages", botMessages);
+        model.addAttribute("kakaoApikey", kakaoApikey);
 
         return "/chat";
     }
 
     @PostMapping("/chat")
     @ResponseBody
-    public String sendMessage(@RequestBody String userMessage) {
+    public String sendMessage(@RequestBody String userMessage, Model model) {
 
         botMessages.add(userMessage);
 
@@ -57,7 +60,7 @@ public class ProductController {
 
         botMessages.add(botResponse);
         log.info("user message : " + userMessage + " size : " + botMessages.size());
-
+        //model.addAttribute();
         return botResponse;
     }
 
@@ -113,6 +116,12 @@ public class ProductController {
 
         model.addAttribute("purchase", purchase);
         return "/purchase";
+    }
+    @GetMapping("/test")
+    public String test() {
+        log.info("= 상품추가 페이지 =");
+
+        return "/test";
     }
 
 

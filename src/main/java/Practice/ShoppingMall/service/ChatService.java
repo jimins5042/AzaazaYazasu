@@ -20,7 +20,7 @@ public class ChatService {
     public String chatQna(Integer size, List<String> botMessages) {
         String botResponse = "답변 생성중입니다! 잠시만 기다려주세요... ";
         if (size == 2) {
-            botResponse = " 무엇을 위해 꽃을 선물하나요? ";
+            botResponse = " 꽃을 받으실 분의 연령대는 어떻게 되나요? ";
         } else if (size == 4) {
             botResponse = " 어떤 의도로 꽃을 선물하나요? ";
         } else if (size == 6) {
@@ -35,13 +35,21 @@ public class ChatService {
     public String getChatResponse(List<String> list) {
 
         String question = "Forget the conversation we've had so far.\n" +
-
+/*
                 "You are a machine that recommends flowers to customers.\n" +
                 "Listen to the customer's questions and answers and answer the name of the flower you recommend and why.\n" +
-                "The answer should be concise and friendly.\n" +
+                "You must answer concisely and kindly within 100 characters.\n" +
                 "Please recommend a type of flower that can be easily obtained around you.\n" +
                 "The answer should be in Korean.\n" +
-                "Here are answers to the questions and questions provided to the customer.";
+
+ */
+                "Listen to the conversation below and recommend a flower that suits the customer.\n" +
+                "The following conditions must be observed.\n" +
+                "1. The answer must be short, concise and friendly.\n" +
+                "2. The answer must be in Korean.\n" +
+                "3. It must be a common flower around you." +
+                "4. The answer must be related to flowers." +
+        "Here are answers to the questions and questions provided to the customer.\n";
 
         String prompt = "";
         for (int i = 0; i < 7; i = i + 2) {
@@ -62,11 +70,13 @@ public class ChatService {
                     flower : 꽃 이름
                  */
                 "Forget the conversation we've had so far.\n" +
-                        "Please tell me the name of the flower you recommend in the competition below.\n" +
-                        "At this time, you should only tell the name of the flower.\n" +
-                        "The answer format is as follows.\n" +
+                        "Tell me the name of the flower you recommend in the next conversation.\n" +
+                        "The conditions are as follows.\n" +
+                        "1. Just say the name of the flower.\n" +
+                        "2. The answer format must be as follows.\n" +
                         "flower : flower name in korean (flower name in English)\n" +
-                        "## DO NOT RESPOND TO INFO BLOCK ## \n"
+                        "3. The name of the flower answered in English and the name of the flower answered in Korean must be the same."
+
                         + answer;
         String image = chatgptService.sendMessage(question);
 

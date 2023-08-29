@@ -46,14 +46,15 @@
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
-                     <!--span class="badge bg-dark text-white ms-1 rounded-pill">0</span-->
+                    <!--span class="badge bg-dark text-white ms-1 rounded-pill">0</span-->
                 </button>
             </form>
 
             <div class="text-sm-end" style="margin-inline-start: 20px;">
                 <i class="box-arrow-up-right me-1"></i>
                 <a class="btn btn-outline-dark mt-auto" th:href="@{'/chat'}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-right-dots" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-chat-right-dots" viewBox="0 0 16 16">
                         <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
                         <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                     </svg>
@@ -92,7 +93,8 @@
                     <a th:href="@{'/product/' + ${product.productId}}">
                         <!--img class="card-img-top" th:src="${product.imageUrl}" alt="..."/-->
                         <!--img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/-->
-                        <img class="card-img-top" src="https://images.unsplash.com/photo-1511336257523-d40701be63ba?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8dHJlZXx8fHx8fDE2OTMxMTkwMjk&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=450" alt="..."/>
+                        <img class="card-img-top" th:src="@{'https://source.unsplash.com/random/400x350/?' + ${product.productImage}}" alt="..."/>
+
                     </a>
                     <!-- Product details-->
                     <div class="card-body p-4">
@@ -100,7 +102,7 @@
                             <!-- Product name-->
                             <h5 class="fw-bolder" th:text="${product.productName}">Product Name</h5>
                             <!-- Product price-->
-                            <span th:text="${product.productInfo}">$0.00</span>
+                            <span th:text="${product.productPrice}">$0.00</span>
                         </div>
                     </div>
 
@@ -132,7 +134,7 @@
                     <!-- Product image-->
                     <a th:href="@{'/product/' + ${product.productId}}">
                         <!--img class="card-img-top" th:src="${product.imageUrl}" alt="..."/-->
-                        <img class="card-img-top" src="https://source.unsplash.com/400x350/?Rose" alt="..."/>
+                        <img class="card-img-top" th:src="@{'https://source.unsplash.com/random/400x350/?' + ${product.productImage}}" alt="..."/>
                     </a>
                     <!-- Product details-->
                     <div class="card-body p-4">
@@ -140,7 +142,7 @@
                             <!-- Product name-->
                             <h5 class="fw-bolder" th:text="${product.productName}">Product Name</h5>
                             <!-- Product price-->
-                            <span th:text="${product.productInfo}">$0.00</span>
+                            <span th:text="${product.productPrice} + '원'">$0.00</span>
                         </div>
                     </div>
 
@@ -148,49 +150,12 @@
 
             </div>
         </div>
-        <div class="text-sm-end" >
+        <div class="text-sm-end">
             <a class="btn btn-outline-dark mt-auto mb-5" th:href="@{'/list'}">더보기</a>
         </div>
 
     </div>
 </section>
-
-
-<!-- Section-->
-<!--section class="py-7" style="margin-top: -100px;">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="py-5 text-center">
-            <h2>00님을 위한 추천 꽃꽃이 세트</h2>
-        </div>
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-            <div th:each="product : ${products}" class="col mb-5">
-
-                <a th:href="@{'/product/' + ${product.productId}}">
-                    <div class="card text-white" style="width: 250px;">
-                        <img src="https://dummyimage.com/350x350/dee2e6/6c757d.jpg" class="card-img-top" alt="...">
-                        <div class="card-img-overlay">
-                            <div class="card-body p-4 ">
-                                <div class="text-center">
-
-                                    <h5 class="fw-bolder" th:text="${product.productName}">Product Name</h5>
-
-                                    <span th:text="${product.productInfo}">$0.00</span>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-                    <div class="text-sm-end">
-            <a class="btn btn-outline-dark mt-auto" th:href="@{'/product/' + ${product.id}}">View options</a>
-        </div>
-        </div>
-    </div>
-
-</section-->
 
 
 <!-- Footer-->

@@ -80,7 +80,7 @@
                     <a class="nav-link" th:href="@{'/product/' + ${product.productId}}">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="https://dummyimage.com/450x450/dee2e6/6c757d.jpg"
+                                <img th:src="@{'https://source.unsplash.com/random/400x350/?' + ${product.productImage}}"
                                      class="img-fluid rounded-start" alt="...">
                             </div>
                             <div class="col-md-8">
@@ -89,6 +89,7 @@
                                     <p class="card-text" th:text="${product.productInfo}">This is a wider card with
                                         supporting text below as a natural lead-in to additional content. This content
                                         is a little bit longer.</p>
+                                    <p class="card-price" th:text="${product.productPrice} + '원'">5000</p>
                                     <!--p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p-->
                                 </div>
                             </div>
