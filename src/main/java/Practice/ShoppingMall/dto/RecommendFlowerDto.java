@@ -10,6 +10,7 @@ public class RecommendFlowerDto {
     private String RecommendImage;
     private String RecommendName;
     private String RecommendContent;
+    private String apiKey;
 
     public RecommendFlowerDto() {
     }
@@ -18,5 +19,13 @@ public class RecommendFlowerDto {
         RecommendImage = recommendImage;
         RecommendName = recommendName;
         RecommendContent = recommendContent;
+    }
+
+    public RecommendFlowerDto(Integer recommendId, String recommendImage, String recommendName, String recommendContent, String apiKey) {
+        RecommendId = recommendId;
+        RecommendImage = recommendImage;
+        RecommendName = recommendName;
+        RecommendContent = recommendContent;
+        this.apiKey = apiKey;
     }
 }

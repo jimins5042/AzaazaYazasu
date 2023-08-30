@@ -43,7 +43,7 @@ public class ProductController {
 
         botMessages.clear();
         if (botMessages.size() == 0) {
-            botMessages.add("어떤 사람에게 선물 하시는 꽃인가요?");
+            botMessages.add("성별과 연령대를 알려주세요.");
         }
         model.addAttribute("kakaoApikey", kakaoApikey);
 
@@ -60,7 +60,7 @@ public class ProductController {
 
         botMessages.add(botResponse);
         log.info("user message : " + userMessage + " size : " + botMessages.size());
-        //model.addAttribute();
+
         return botResponse;
     }
 
@@ -117,6 +117,17 @@ public class ProductController {
         model.addAttribute("purchase", purchase);
         return "/purchase";
     }
+
+    @GetMapping("/shareSns")
+    public String shareSns(Model model){
+        log.info("= 상품구매 페이지 이동 =");
+
+        RecommendFlowerDto purchase = productMapper.findPurchaseRecord();
+        purchase.setApiKey(kakaoApikey);
+        model.addAttribute("purchase", purchase);
+        return "/shareSns";
+    }
+
     @GetMapping("/test")
     public String test() {
         log.info("= 상품추가 페이지 =");

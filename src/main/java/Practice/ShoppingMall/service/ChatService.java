@@ -20,11 +20,11 @@ public class ChatService {
     public String chatQna(Integer size, List<String> botMessages) {
         String botResponse = "답변 생성중입니다! 잠시만 기다려주세요... ";
         if (size == 2) {
-            botResponse = " 꽃을 받으실 분의 연령대는 어떻게 되나요? ";
+            botResponse = " 고객님의 퍼스널 컬러를 알려주세요. ";
         } else if (size == 4) {
-            botResponse = " 어떤 의도로 꽃을 선물하나요? ";
+            botResponse = " 고객님의 MBTI는 무엇인가요?";
         } else if (size == 6) {
-            botResponse = ".";
+            botResponse = " 특별히 원하는 꽃이 있을까요?";
         } else if (size == 8) {
             botResponse = getFlowerImagin(getChatResponse(botMessages));
         }
@@ -91,7 +91,8 @@ public class ChatService {
         service.saveRecommend(recommend);
 
         image = "<img src='" + imageUrl + "' alt='...'/> <br><br>" + answer +
-                "<br><br> 구매를 원하시면 '!구매'를, 다른 꽃 추천을 받고 싶다면 '!다시'를 입력해주세요. ";
+                "<br><br> 구매를 원하시면 '!구매'를, \n다른 꽃 추천을 받고 싶다면 '!다시'를,\n" +
+                "진단 결과를 공유하고 싶다면 '!공유'를 입력해주세요. ";
         return image;
     }
 
