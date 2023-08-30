@@ -1,5 +1,6 @@
 package Practice.ShoppingMall.repository;
 
+import Practice.ShoppingMall.dto.OneDayClass;
 import Practice.ShoppingMall.dto.PageProduct;
 import Practice.ShoppingMall.dto.Product;
 import Practice.ShoppingMall.dto.RecommendFlowerDto;
@@ -45,5 +46,10 @@ public interface ProductMapper {
     //저장한 꽃 정보 불러오기
     @Select("SELECT * FROM recommend ORDER BY recommend_Id DESC limit 1")
     RecommendFlowerDto findPurchaseRecord();
+
+    @Select("SELECT * FROM OneDayClass")
+    List<OneDayClass> findOneDayClass();
+
+
 
 }
