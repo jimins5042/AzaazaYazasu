@@ -14,7 +14,10 @@
 
 ## Chat Gpt api를 사용한 사용자 개개인에 맞춘 꽃 추천 기능
 
-![](https://velog.velcdn.com/images/2jooin1207/post/24be5410-41e4-455a-81b0-8ccdc3d128f3/image.PNG)
+![](https://velog.velcdn.com/images/2jooin1207/post/67749cd2-a68b-4403-a77d-0304c5549f39/image.PNG)
+
+
+![](https://velog.velcdn.com/images/2jooin1207/post/46f891e7-08cd-459c-b5f0-0cb16a4b9e3a/image.PNG)
 
 
 구현 방식 및 특징
